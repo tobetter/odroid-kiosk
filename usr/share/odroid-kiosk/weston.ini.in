@@ -1,0 +1,25 @@
+[core]
+idle-time=0
+
+[shell]
+background-image=/usr/share/odroid-kiosk/splash.png
+background-color=0xff002244
+background-type=scale-crop
+clock-format=minutes
+panel-color=0x904c8595
+locking=false
+animation=zoom
+startup-animation=fade
+
+[launcher]
+icon=/usr/share/icons/gnome/24x24/apps/arts.png
+path=@bindir@/qt-kiosk-browser /etc/qt-kiosk-browser.conf
+
+[input-method]
+path=@libexecdir@/weston-keyboard
+
+[screen-share]
+command=@bindir@/weston --backend=rdp-backend.so --shell=fullscreen-shell.so --no-clients-resize
+
+[xwayland]
+path=@bindir@/Xwayland

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for service in odroid-kiosk-weston weston; do
+	systemctl stop $service
+	systemctl disable $service
+done
+
+chvt 1
+
+#DEBHELPER#

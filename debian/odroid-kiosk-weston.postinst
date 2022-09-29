@@ -1,0 +1,53 @@
+#!/bin/sh
+
+WESTON_CONFIG=/etc/xdg/weston/weston.ini
+BINDIR=/usr/bin
+LIBEXECDIR=/usr/libexec
+DEFAULT_USERID=1000
+DEFAULT_USER=$(cat /etc/passwd | grep $DEFAULT_USERID | cut -d':' -f1)
+
+do_drop_default_env() {
+       cat<<__EOF | sed -e "s/@@DEFAULT_USER@@/$DEFAULT_USER/g" \
+		-e "s/@@DEFAULT_USERID@@/$DEFAULT_USERID/g" | tee /etc/default/odroid-kiosk
+USER=@@DEFAULT_USER@@
+USERID=@@DEFAULT_USERID@@
+QT_QPA_PLATFORM=wayland
+XDG_RUNTIME_DIR=/run/user/@@DEFAULT_USERID@@
+AUTOSTART_DELAY=5
+URL=https://www.hardkernel.com
+__EOF
+}
+
+case "$1" in
+	configure)
+		if [ ! -f $WESTON_CONFIG ]; then
+			mkdir -p $(dirname $WESTON_CONFIG)
+			sed -e "s|@bindir[@]|$BINDIR|g" \
+				-e "s|@libexecdir[@]|$LIBEXECDIR|g" \
+				/usr/share/odroid-kiosk/weston.ini.in > $WESTON_CONFIG
+		fi
+
+		for service in weston.service odroid-kiosk-weston.service; do
+			cat /usr/share/odroid-kiosk/$service.in | sed \
+				-e "s|@@DEFAULT_USER@@|$DEFAULT_USER|g" \
+				-e "s|@@DEFAULT_USERID@@|$DEFAULT_USERID|g" \
+				-e "s|@bindir[@]|$BINDIR|g" \
+				-e "s|@libexecdir[@]|$LIBEXECDIR|g" \
+				> /usr/lib/systemd/system/$service
+		done
+
+		do_drop_default_env
+
+		;;
+	abort-upgrade | abort-remove | abort-deconfigure)
+		;;
+	*)
+		echo "postinst called with unknown argument \`$1'" >&2
+		exit 1
+		;;
+esac
+
+systemctl enable weston
+systemctl enable odroid-kiosk-weston
+
+#DEBHELPER#

@@ -1,0 +1,26 @@
+Source: odroid-kiosk-weston
+Section: admin
+Priority: standard
+Maintainer: Dongjin Kim <tobetter@gmail.com>
+Build-Depends: debhelper, po-debconf
+
+Package: odroid-kiosk-weston
+Architecture: arm64
+Depends: weston
+Description: Kiosk Demo package for ODROID with Weston
+
+Package: odroid-kiosk-qt
+Architecture: arm64
+Provides: odroid-kiosk-chromium
+Conflicts: odroid-kiosk-chromium
+Replaces: odroid-kiosk-chromium, chromium-browser
+Depends: odroid-kiosk-weston, qt-kiosk-browser
+Description: Kiosk Demo package for ODROID with Weston
+
+Package: odroid-kiosk-chromium
+Architecture: arm64
+Provides: odroid-kiosk-qt
+Conflicts: odroid-kiosk-qt
+Replaces: odroid-kiosk-qt, qt-kiosk-browser
+Depends: odroid-kiosk-weston, chromium-browser
+Description: Kiosk Demo package for ODROID with Weston
