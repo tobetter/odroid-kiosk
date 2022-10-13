@@ -14,7 +14,7 @@ Architecture: arm64
 Provides: odroid-kiosk-chromium
 Conflicts: odroid-kiosk-chromium
 Replaces: odroid-kiosk-chromium, chromium-browser
-Depends: odroid-kiosk-weston, qt-kiosk-browser
+Depends: odroid-kiosk-weston, qt-kiosk-browser, qtwayland5
 Description: Kiosk Demo package for ODROID with Weston
 
 Package: odroid-kiosk-chromium

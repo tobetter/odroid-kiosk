@@ -9,7 +9,7 @@ fi
 sleep $AUTOSTART_DELAY
 
 if [ -f /usr/bin/qt-kiosk-browser ]; then
-	/usr/bin/qt-kiosk-browser /etc/qt-kiosk-browser.conf
+	/usr/bin/qt-kiosk-browser -platform wayland /etc/qt-kiosk-browser.conf
 elif [ -f /usr/bin/chromium-browser ]; then
 	/usr/bin/chromium-browser --ozone-platform=wayland --start-fullscreen --kiosk $URL
 fi
