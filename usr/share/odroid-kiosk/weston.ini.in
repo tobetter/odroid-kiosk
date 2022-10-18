@@ -12,8 +12,8 @@ animation=zoom
 startup-animation=fade
 
 [launcher]
-icon=/usr/share/icons/gnome/24x24/apps/arts.png
-path=@bindir@/qt-kiosk-browser /etc/qt-kiosk-browser.conf
+icon=/usr/share/weston/terminal.png
+path=/usr/bin/weston-terminal
 
 [input-method]
 path=@libexecdir@/weston-keyboard
