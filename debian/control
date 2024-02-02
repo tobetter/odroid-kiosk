@@ -6,7 +6,7 @@ Build-Depends: debhelper, po-debconf
 
 Package: odroid-kiosk-weston
 Architecture: arm64
-Depends: weston
+Depends: weston, kbd
 Description: Kiosk Demo package for ODROID with Weston
 
 Package: odroid-kiosk-qt
