@@ -1,9 +1,16 @@
 #!/bin/sh
 
-for service in odroid-kiosk-weston weston; do
-	systemctl stop $service
-	systemctl disable $service
-done
+service=odroid-kiosk-weston
+
+if [ -f /etc/default/odroid-kiosk-weston ]; then
+	. /etc/default/odroid-kiosk-weston
+fi
+
+rm -f ${WESTON_CONFIG}
+
+systemctl stop $service
+systemctl disable service
+rm -f /usr/lib/systemd/system/$service
 
 chvt 1
 

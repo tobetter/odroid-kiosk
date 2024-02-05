@@ -7,7 +7,7 @@ After=systemd-user-sessions.service getty@tty7.service
 [Service]
 User=@@DEFAULT_USER@@
 PermissionsStartOnly=true
-EnvironmentFile=-/etc/default/odroid-kiosk
+EnvironmentFile=-/etc/default/odroid-kiosk-weston
 
 # Log us in via PAM so we get our XDG & co. environment and
 # are treated as logged in so we can use the tty:
@@ -31,7 +31,8 @@ ExecStartPre=/bin/chvt 7
 ExecStartPre=/usr/bin/sudo /bin/mkdir -p /run/user/@@DEFAULT_USERID@@
 ExecStartPre=/usr/bin/sudo /bin/chown @@DEFAULT_USER@@:@@DEFAULT_USER@@ /run/user/@@DEFAULT_USERID@@
 ExecStartPre=/bin/chmod 0700 /run/user/@@DEFAULT_USERID@@
-ExecStart=/usr/bin/weston-launch -- --xwayland $OPTARGS
+ExecStart=/usr/bin/weston --log=/home/odroid/weston.log
+ExecStop=/bin/chvt 1
 IgnoreSIGPIPE=no
 
 [Install]
