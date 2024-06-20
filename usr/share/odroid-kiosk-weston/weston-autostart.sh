@@ -6,6 +6,15 @@ if [ -f /etc/default/odroid-kiosk ]; then
 	. /etc/default/odroid-kiosk
 fi
 
+set -- $(cat /proc/cmdline)
+for param in "$@"; do
+	case "$param" in
+		kiosk.url=*)
+			URL=${param#kiosk.url=}
+			;;
+	esac
+done
+
 sleep $AUTOSTART_DELAY
 
 if [ -f /usr/bin/qt-kiosk-browser ]; then
