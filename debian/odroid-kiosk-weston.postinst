@@ -23,9 +23,11 @@ __EOF
 case "$1" in
 	configure)
 		mkdir -p $(dirname $WESTON_CONFIG)
-		sed -e "s|@bindir[@]|$BINDIR|g" \
-			-e "s|@libexecdir[@]|$LIBEXECDIR|g" \
-			/usr/share/odroid-kiosk-weston/weston.ini.in > $WESTON_CONFIG
+		if [ ! -f $WESTON_CONFIG ]; then
+			sed -e "s|@bindir[@]|$BINDIR|g" \
+				-e "s|@libexecdir[@]|$LIBEXECDIR|g" \
+				/usr/share/odroid-kiosk-weston/weston.ini.in > $WESTON_CONFIG
+		fi
 
 		cat /usr/share/odroid-kiosk-weston/$SERVICE.service.in | sed \
 			-e "s|@@DEFAULT_USER@@|$DEFAULT_USER|g" \

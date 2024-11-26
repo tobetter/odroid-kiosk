@@ -6,8 +6,6 @@ if [ -f /etc/default/odroid-kiosk-weston ]; then
 	. /etc/default/odroid-kiosk-weston
 fi
 
-rm -f ${WESTON_CONFIG}
-
 systemctl stop $service
 systemctl disable service
 rm -f /usr/lib/systemd/system/$service
