@@ -31,7 +31,7 @@ ExecStartPre=/bin/chvt 7
 ExecStartPre=/usr/bin/sudo /bin/mkdir -p /run/user/@@DEFAULT_USERID@@
 ExecStartPre=/usr/bin/sudo /bin/chown @@DEFAULT_USER@@:@@DEFAULT_USER@@ /run/user/@@DEFAULT_USERID@@
 ExecStartPre=/bin/chmod 0700 /run/user/@@DEFAULT_USERID@@
-ExecStart=/usr/bin/weston --log=/home/odroid/weston.log
+ExecStart=/usr/bin/weston --log=/home/odroid/weston.log ${WESTON_ARGS}
 ExecStop=/bin/chvt 1
 IgnoreSIGPIPE=no
 
