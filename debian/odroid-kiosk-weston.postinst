@@ -1,13 +1,22 @@
 #!/bin/sh
 
+. /usr/share/odroid-base/library.sh
+
 WESTON_CONFIG=/etc/xdg/weston/weston.ini
 BINDIR=/usr/bin
 LIBEXECDIR=/usr/libexec
 DEFAULT_USERID=1000
 DEFAULT_USER=$(cat /etc/passwd | grep $DEFAULT_USERID | cut -d':' -f1)
 SERVICE=odroid-kiosk-weston
+WESTON_ARGS="--socket=wayland-0"
 
 do_drop_default_env() {
+	case $(odroid_model_simple) in
+		odroidc5)
+			WESTON_ARGS="${WESTON_ARGS} --remove-simpleshell"
+			;;
+	esac
+
        cat<<__EOF | sed -e "s/@@DEFAULT_USER@@/$DEFAULT_USER/g" \
 		-e "s/@@DEFAULT_USERID@@/$DEFAULT_USERID/g" | tee /etc/default/odroid-kiosk-weston
 AUTOSTART_DELAY=5
@@ -17,7 +26,7 @@ USER=@@DEFAULT_USER@@
 USERID=@@DEFAULT_USERID@@
 WESTON_CONFIG=${WESTON_CONFIG}
 XDG_RUNTIME_DIR=/run/user/@@DEFAULT_USERID@@
-WESTON_ARGS="--socket=wayland-0"
+WESTON_ARGS="${WESTON_ARGS}"
 __EOF
 }
 
