@@ -1,5 +1,5 @@
 Source: odroid-kiosk-weston
-Section: web
+Section: admin
 Priority: standard
 Maintainer: Dongjin Kim <tobetter@gmail.com>
 Build-Depends: debhelper, po-debconf
