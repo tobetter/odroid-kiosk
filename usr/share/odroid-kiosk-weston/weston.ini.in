@@ -1,6 +1,6 @@
 [core]
 idle-time=0
-shell=kiosk-shell.so
+shell=desktop-shell.so
 xwayland=true
 
 [shell]
