@@ -2,7 +2,7 @@
 
 WESTON_CONFIG=/etc/xdg/weston/weston.ini
 BINDIR=/usr/bin
-LIBEXECDIR=/usr/libexec
+LIBEXECDIR=/usr/lib/aarch64-linux-gnu
 DEFAULT_USERID=1000
 DEFAULT_USER=$(cat /etc/passwd | grep $DEFAULT_USERID | cut -d':' -f1)
 SERVICE=odroid-kiosk-weston
