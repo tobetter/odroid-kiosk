@@ -1,6 +1,6 @@
 Source: odroid-kiosk-weston
 Section: admin
-Priority: standard
+Priority: optional
 Maintainer: Dongjin Kim <tobetter@gmail.com>
 Build-Depends: debhelper, po-debconf
 
